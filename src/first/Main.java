@@ -14,8 +14,8 @@ public class Main {
                 345, 34, 2, 4, 6, 8, 10, 14, 17, 19, 24, 56, 78, 89, 45, 12, 45, 89);
         List<Integer> firstDest = new ArrayList<>();
         List<Integer> secondDest = new ArrayList<>();
-        List<Integer> sub1 = source.subList(0, 20);
-        List<Integer> sub2 = source.subList(21, 33);
+        List<Integer> sub1 = source.subList(0, 21);
+        List<Integer> sub2 = source.subList(21, 34);
         List<Integer> sub3 = source.subList(34, source.size());
 
         PrimeNumbers p1 = new PrimeNumbers(sub1, firstDest);

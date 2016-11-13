@@ -1,0 +1,59 @@
+package second;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * Created by Nick on 11/12/2016.
+ */
+public class WordPercent implements Runnable {
+    List<String> words;
+    Map<String, Integer> counter;
+
+    public WordPercent() {
+    }
+
+    public WordPercent(List<String> words, Map<String, Integer> counter) {
+
+        this.words = words;
+        this.counter = counter;
+    }
+
+    public List<String> getWords() {
+
+        return words;
+    }
+
+    public void setWords(List<String> words) {
+        this.words = words;
+    }
+
+    public Map<String, Integer> getCounter() {
+        return counter;
+    }
+
+    public void setCounter(Map<String, Integer> counter) {
+        this.counter = counter;
+    }
+
+    @Override
+    public void run() {
+        for (String elem : words) {
+            synchronized (counter) {
+                if (!counter.containsKey(elem)) {
+                    this.counter.put(elem, 1);
+                    // System.out.println(Thread.currentThread().getName() + "--" + elem + " added!");
+                } else {
+                    this.counter.put(elem, this.counter.get(elem) + 1);
+                    // System.out.println(Thread.currentThread().getName() + "--" + elem + " incremented!");
+                }
+                try {
+                    Thread.sleep(5);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+}
