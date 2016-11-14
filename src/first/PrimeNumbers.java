@@ -36,11 +36,13 @@ public class PrimeNumbers implements Runnable {
     }
 
     @Override
-    public synchronized void run() {
+    public void run() {
         for (Integer elem : source) {
             if (isPrime(elem)) {
-                destination.add(elem);
-                System.out.println(Thread.currentThread().getName() + "   " + elem);
+                synchronized (destination) {
+                    destination.add(elem);
+                    System.out.println(Thread.currentThread().getName() + "   " + elem);
+                }
             }
             try {
                 Thread.sleep(5);

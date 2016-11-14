@@ -39,7 +39,7 @@ public class Main {
 
 
         long finishTime = System.currentTimeMillis();
-        System.out.println("\n\nThree threads time " + (finishTime - startTime) + "\n\n");
+        System.out.println("\n\nThree threads time: " + (finishTime - startTime) + "\n\n");
 
         long start = System.currentTimeMillis();
         t4.start();

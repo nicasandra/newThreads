@@ -15,7 +15,7 @@ public class Main {
                 "are", "ana", "mere", "ana", "ana", "are", "mere",
                 "are", "ana", "mere", "ana", "ana", "are", "mere",
                 "are", "ana", "mere", "ana", "ana", "are", "mere",
-                "are", "ana", "mere");
+                "are", "ana", "mere", "are");
         Map<String, Integer> map = new HashMap<>();
 
         WordPercent wp = new WordPercent(words, map);
@@ -29,11 +29,12 @@ public class Main {
         for (Map.Entry<String, Integer> e : map.entrySet()) {
             System.out.println(e.getKey() + " - " + e.getValue());
         }
-        System.out.println("\n1 thread time: " + (finish1 - start1));
+
+        System.out.println("1 thread time: " + (finish1 - start1) + "\n");
         map = new HashMap<>();
         WordPercent wp1 = new WordPercent(words.subList(0, 10), map);
         WordPercent wp2 = new WordPercent(words.subList(10, 20), map);
-        WordPercent wp3 = new WordPercent(words.subList(20, 28), map);
+        WordPercent wp3 = new WordPercent(words.subList(20, words.size()), map);
 
         Thread t1 = new Thread(wp1);
         Thread t2 = new Thread(wp2);
@@ -55,6 +56,13 @@ public class Main {
             System.out.println(e.getKey() + " - " + e.getValue());
         }
 
-        System.out.println("\n3 threads time: " + (finish2 - start2));
+        System.out.println("3 threads time: " + (finish2 - start2));
+
+        /*
+        Write in file
+         */
+        WordPercent.writeInFile(map, "destination.in");
+
+
     }
 }
