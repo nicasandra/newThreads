@@ -1,53 +1,35 @@
 package first;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Created by nicasandra on 11/11/2016.
  */
 public class PrimeNumbers implements Runnable {
-    List<Integer> source;
-    List<Integer> destination;
+    private ArrayBlockingQueue<Integer> source;
+    private ArrayBlockingQueue<Integer> destination;
 
-    public List<Integer> getSource() {
-        return source;
-    }
-
-    public void setSource(List<Integer> source) {
-        this.source = source;
-    }
-
-    public List<Integer> getDestination() {
-        return destination;
-    }
-
-    public void setDestination(List<Integer> destination) {
-        this.destination = destination;
-    }
-
-    public PrimeNumbers(List<Integer> source, List<Integer> destination) {
+    public PrimeNumbers(ArrayBlockingQueue<Integer> source, ArrayBlockingQueue<Integer> destination) {
         this.source = source;
         this.destination = destination;
-    }
-
-    public PrimeNumbers() {
     }
 
     @Override
     public void run() {
-        for (Integer elem : source) {
-            if (isPrime(elem)) {
-                synchronized (destination) {
-                    destination.add(elem);
-                    System.out.println(Thread.currentThread().getName() + "   " + elem);
+        int number = 0;
+        while (!(source.isEmpty())) {
+            synchronized (source) {
+                if (!source.isEmpty()) {
+                    number = source.poll();
                 }
             }
-            try {
-                Thread.sleep(5);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+            if (isPrime(number)) {
+                synchronized (destination) {
+                    destination.add(number);
+                }
             }
         }
     }
